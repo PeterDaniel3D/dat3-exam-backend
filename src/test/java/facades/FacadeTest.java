@@ -109,7 +109,7 @@ class FacadeTest {
     }
 
     @Test
-    void getAuctions() {
+    void getAuctions() throws API_Exception {
         EntityManager em = getEntityManager();
         TypedQuery<Auction> query = em.createQuery("SELECT auction FROM Auction auction", Auction.class);
         List<Auction> auctions = query.getResultList();
@@ -126,7 +126,7 @@ class FacadeTest {
     }
 
     @Test
-    void getBoatsByOwner() {
+    void getBoatsByOwner() throws API_Exception {
         EntityManager em = getEntityManager();
         TypedQuery<Boat> query = em.createQuery("SELECT boat FROM Boat boat INNER JOIN boat.owners owners WHERE owners.id = :id", Boat.class);
         query.setParameter("id", ownerC.getId());
@@ -137,7 +137,7 @@ class FacadeTest {
     }
 
     @Test
-    void addBoat() {
+    void addBoat() throws API_Exception {
         BoatDTO expected = new BoatDTO(boatA.getName(), boatA.getBrand(), boatA.getMake(), boatA.getYear(), boatA.getImageURL(), ownerA.getId());
         BoatDTO actual = facade.addBoat(expected);
         assertTrue(Objects.equals(expected.getName(), actual.getName()) &&

@@ -51,7 +51,7 @@ public class Resource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("auctions")
-    public Response getAuctions() {
+    public Response getAuctions() throws API_Exception {
         List<AuctionDTO> result = facade.getAuctions();
         return Response.ok().entity(gson.toJson(result)).build();
     }
@@ -69,7 +69,7 @@ public class Resource {
     @Produces({MediaType.APPLICATION_JSON})
     @Path("boatsByOwner/{id}")
     @RolesAllowed("owner")
-    public Response getBoatsByOwner(@PathParam("id") Long id) {
+    public Response getBoatsByOwner(@PathParam("id") Long id) throws API_Exception {
         List<BoatDTO> result = facade.getBoatsByOwner(id);
         return Response.ok().entity(gson.toJson(result)).build();
     }
@@ -78,7 +78,7 @@ public class Resource {
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
     @Path("boat")
-    public Response addBoat(String str) {
+    public Response addBoat(String str) throws API_Exception {
         BoatDTO boatDTO = gson.fromJson(str, BoatDTO.class);
         BoatDTO result = facade.addBoat(boatDTO);
         return Response.ok().entity(gson.toJson(result)).build();

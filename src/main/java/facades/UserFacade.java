@@ -34,7 +34,7 @@ public class UserFacade {
 
     public User registerNewUser(String username, String password) {
         EntityManager em = emf.createEntityManager();
-        Role role = new Role("user");
+        Role role = new Role("owner");
         User user = new User(username, password);
         user.addRole(role);
         try {
@@ -42,7 +42,7 @@ public class UserFacade {
                 em.getTransaction().begin();
                 em.persist(user);
                 em.getTransaction().commit();
-            } else throw new Exception("User with username (" + username + ") already exists!");
+            } else throw new Exception("Owner with username (" + username + ") already exists!");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
