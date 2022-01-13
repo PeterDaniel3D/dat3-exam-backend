@@ -77,7 +77,7 @@ public class Populator {
         if (users.isEmpty()) {
             // Create roles
             Role adminRole = new Role("admin");
-            Role ownerRole = new Role("owner");
+            Role ownerRole = new Role("user");
 
             // Create users
             User admin = new User("admin", "admin");

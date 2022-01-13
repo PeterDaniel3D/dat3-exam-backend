@@ -87,7 +87,7 @@ public class Resource {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     @Path("boatsByOwner/{id}")
-    @RolesAllowed("owner")
+    @RolesAllowed("user")
     public Response getBoatsByOwner(@PathParam("id") Long id) {
         List<BoatDTO> result = facade.getBoatsByOwner(id);
         return Response.ok().entity(gson.toJson(result)).build();
