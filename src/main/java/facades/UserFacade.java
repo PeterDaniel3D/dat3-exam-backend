@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserFacade {
+
     private static EntityManagerFactory emf;
     private static UserFacade instance;
 
@@ -74,5 +75,19 @@ public class UserFacade {
         List<UserDTO> userDTOS = new ArrayList<>();
         users.forEach(user -> userDTOS.add(new UserDTO(user.getUserName(), user.getOwner().getId())));
         return userDTOS;
+    }
+
+    public UserDTO getOwnerId(String username) throws API_Exception {
+        EntityManager em = getEntityManager();
+        User user;
+        try {
+            user = em.find(User.class, username);
+            if (user == null) {
+                throw new API_Exception("No owner with username (" + username + ") found.");
+            }
+        } finally {
+            em.close();
+        }
+        return new UserDTO(user.getOwner().getId());
     }
 }

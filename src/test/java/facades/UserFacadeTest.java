@@ -1,10 +1,9 @@
 package facades;
 
+import dtos.UserDTO;
 import entities.*;
 import errorhandling.API_Exception;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import utils.EMF_Creator;
 
 import javax.persistence.EntityManager;
@@ -20,8 +19,14 @@ class UserFacadeTest {
     private static EntityManagerFactory emf;
     private static UserFacade facade;
     private static Owner ownerA, ownerB, ownerC;
+    private static Role adminRole, ownerRole;
+    private static User admin, user, dev;
 
     public UserFacadeTest() {
+    }
+
+    private EntityManager getEntityManager() {
+        return emf.createEntityManager();
     }
 
     @BeforeAll
@@ -32,21 +37,31 @@ class UserFacadeTest {
 
     @BeforeEach
     void setUp() throws API_Exception {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = getEntityManager();
 
-        // Create users
+        // Create owners
         ownerA = new Owner("Daniel", "11112222", "daniel@daniel.dk");
         ownerB = new Owner("Jon", "33334444", "jon@jon.dk");
         ownerC = new Owner("Peter", "55556666", "peter@peter.dk");
 
+        try {
+            em.getTransaction().begin();
+            em.persist(ownerA);
+            em.persist(ownerB);
+            em.persist(ownerC);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            throw new API_Exception("No connection to DB.");
+        }
+
         // Create roles
-        Role adminRole = new Role("admin");
-        Role ownerRole = new Role("owner");
+        adminRole = new Role("admin");
+        ownerRole = new Role("owner");
 
         // Create users
-        User admin = new User("admin", "admin");
-        User user = new User("owner", "owner");
-        User dev = new User("dev", "dev");
+        admin = new User("admin", "admin");
+        user = new User("owner", "owner");
+        dev = new User("dev", "dev");
 
         // Assign roles
         admin.addRole(adminRole);
@@ -62,6 +77,9 @@ class UserFacadeTest {
         // Persist
         try {
             em.getTransaction().begin();
+            em.persist(ownerA);
+            em.persist(ownerB);
+            em.persist(ownerC);
             em.persist(adminRole);
             em.persist(ownerRole);
             em.persist(admin);
@@ -70,6 +88,20 @@ class UserFacadeTest {
             em.getTransaction().commit();
         } catch (Exception e) {
             throw new API_Exception("No connection to DB.");
+        } finally {
+            em.close();
+        }
+    }
+
+    @AfterEach
+    void tearDown() {
+        EntityManager em = getEntityManager();
+
+        try {
+            em.getTransaction().begin();
+            em.createNamedQuery("users.deleteAllRows").executeUpdate();
+            em.createNamedQuery("roles.deleteAllRows").executeUpdate();
+            em.getTransaction().commit();
         } finally {
             em.close();
         }
@@ -85,6 +117,18 @@ class UserFacadeTest {
 
     @Test
     void getUsers() throws API_Exception {
-        assertEquals(3, facade.getUsers().size());
+        EntityManager em = getEntityManager();
+        TypedQuery<User> query = em.createQuery("SELECT user FROM User user", User.class);
+        List<User> users = query.getResultList();
+        int expected = users.size();
+        int actual = facade.getUsers().size();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void getOwnerId() throws API_Exception {
+        Long expected = ownerC.getId();
+        Long actual = facade.getOwnerId(dev.getUserName()).getOwnerId();
+        assertEquals(expected, actual);
     }
 }

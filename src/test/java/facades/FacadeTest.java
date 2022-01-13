@@ -1,5 +1,6 @@
 package facades;
 
+import dtos.BoatDTO;
 import entities.Auction;
 import entities.Boat;
 import entities.Owner;
@@ -12,6 +13,8 @@ import utils.EMF_Creator;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,6 +30,10 @@ class FacadeTest {
     public FacadeTest() {
     }
 
+    private EntityManager getEntityManager() {
+        return emf.createEntityManager();
+    }
+
     @BeforeAll
     public static void setUpClass() {
         emf = EMF_Creator.createEntityManagerFactoryForTest();
@@ -35,7 +42,7 @@ class FacadeTest {
 
     @BeforeEach
     void setUp() throws API_Exception {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = getEntityManager();
 
         // Create
         ownerA = new Owner("Daniel", "11112222", "daniel@daniel.dk");
@@ -86,10 +93,12 @@ class FacadeTest {
 
     @AfterEach
     void tearDown() {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = getEntityManager();
 
         try {
             em.getTransaction().begin();
+            em.createNamedQuery("boat.deleteAllRows").executeUpdate();
+            em.createNamedQuery("auction.deleteAllRows").executeUpdate();
             em.createNamedQuery("owner.deleteAllRows").executeUpdate();
             em.getTransaction().commit();
         } finally {
@@ -99,7 +108,12 @@ class FacadeTest {
 
     @Test
     void getAuctions() {
-        assertEquals(2, facade.getAuctions().size());
+        EntityManager em = getEntityManager();
+        TypedQuery<Auction> query = em.createQuery("SELECT auction FROM Auction auction", Auction.class);
+        List<Auction> auctions = query.getResultList();
+        int expected = auctions.size();
+        int actual = facade.getAuctions().size();
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -110,18 +124,13 @@ class FacadeTest {
     }
 
     @Test
-    void registerNewUser() {
-    }
-
-    @Test
-    void getVerifiedUser() {
-    }
-
-    @Test
-    void getOwnerId() {
-    }
-
-    @Test
     void getBoatsByOwner() {
+        EntityManager em = getEntityManager();
+        TypedQuery<Boat> query = em.createQuery("SELECT boat FROM Boat boat INNER JOIN boat.owners owners WHERE owners.id = :id", Boat.class);
+        query.setParameter("id", ownerC.getId());
+        List<Boat> boats = query.getResultList();
+        int expected = boats.size();
+        int actual = facade.getBoatsByOwner(ownerC.getId()).size();
+        assertEquals(expected, actual);
     }
 }

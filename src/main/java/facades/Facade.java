@@ -3,7 +3,6 @@ package facades;
 import dtos.AuctionDTO;
 import dtos.BoatDTO;
 import dtos.OwnerDTO;
-import dtos.UserDTO;
 import entities.*;
 
 import javax.persistence.EntityManager;
@@ -33,20 +32,6 @@ public class Facade {
             instance = new Facade();
         }
         return instance;
-    }
-
-    public UserDTO getOwnerId(String username) throws API_Exception {
-        EntityManager em = getEntityManager();
-        User user;
-        try {
-            user = em.find(User.class, username);
-            if (user == null) {
-                throw new API_Exception("No owner with username (" + username + ") found.");
-            }
-        } finally {
-            em.close();
-        }
-        return new UserDTO(user.getOwner().getId());
     }
 
     public List<AuctionDTO> getAuctions() {

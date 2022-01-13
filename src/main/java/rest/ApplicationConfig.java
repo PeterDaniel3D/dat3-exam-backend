@@ -1,6 +1,6 @@
 package rest;
 
-import facades.Populator;
+import utils.Populator;
 
 import java.util.Set;
 import javax.ws.rs.core.Application;

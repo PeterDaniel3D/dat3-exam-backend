@@ -1,4 +1,4 @@
-package facades;
+package utils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -6,7 +6,6 @@ import javax.persistence.TypedQuery;
 
 import entities.*;
 import errorhandling.API_Exception;
-import utils.EMF_Creator;
 
 import java.util.List;
 
@@ -74,6 +73,7 @@ public class Populator {
                 throw new API_Exception("No connection to DB.");
             } finally {
                 em.close();
+                System.out.println("Users created!");
             }
         } else {
             throw new API_Exception("DB is already populated!");
@@ -120,6 +120,7 @@ public class Populator {
                 throw new API_Exception("No connection to DB.");
             } finally {
                 em.close();
+                System.out.println("Populated DB!");
             }
         } else {
             throw new API_Exception("DB already contain users!");
