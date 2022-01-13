@@ -7,6 +7,7 @@ import com.google.gson.JsonParser;
 import errorhandling.API_Exception;
 import facades.Facade;
 import facades.Populator;
+import facades.UserFacade;
 import utils.EMF_Creator;
 import utils.Message;
 
@@ -19,7 +20,7 @@ import javax.ws.rs.core.Response;
 public class RegisterEndpoint {
 
     private static final EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
-    private static final Facade facade = Facade.getFacade(emf);
+    private static final UserFacade facade = UserFacade.getFacade(emf);
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     @GET

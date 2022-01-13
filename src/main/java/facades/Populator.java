@@ -26,50 +26,57 @@ public class Populator {
     public static void populate() throws API_Exception {
         EntityManager em = emf.createEntityManager();
 
-        // Create
-        ownerA = new Owner("Daniel", "11112222", "daniel@daniel.dk");
-        ownerB = new Owner("Jon", "33334444", "jon@jon.dk");
-        ownerC = new Owner("Peter", "55556666", "peter@peter.dk");
+        TypedQuery<Owner> query = em.createQuery("SELECT owner FROM Owner owner", Owner.class);
+        List<Owner> owners = query.getResultList();
 
-        boatA = new Boat("Modesty", "Ukendt", "BB-11", 1967, "https://motorbaadsnyt.dk/fileadmin/news_import/modstytopPICT0048.JPG");
-        boatB = new Boat("Speedy", "Yamaha", "SS-Turbo", 1997, "https://www.proptalk.com/sites/default/files/inline-images/48576791432_9edee785c5_o.jpg");
-        boatC = new Boat("Nimbus T8", "Nimbus", "Nimbus 8 Series", 1971, "https://nimbus.se/app/uploads/2020/10/Nimbus2020_T8-1200x800.jpg");
+        if (owners.isEmpty()) {
+            // Create
+            ownerA = new Owner("Daniel", "11112222", "daniel@daniel.dk");
+            ownerB = new Owner("Jon", "33334444", "jon@jon.dk");
+            ownerC = new Owner("Peter", "55556666", "peter@peter.dk");
 
-        auctionA = new Auction("Båd auktion i Torvehallerne", "2022/02/01", "12:00", "København");
-        auctionB = new Auction("Køb en billig båd", "2022/06/01", "12:00", "Israels Plads");
+            boatA = new Boat("Modesty", "Ukendt", "BB-11", 1967, "https://motorbaadsnyt.dk/fileadmin/news_import/modstytopPICT0048.JPG");
+            boatB = new Boat("Speedy", "Yamaha", "SS-Turbo", 1997, "https://www.proptalk.com/sites/default/files/inline-images/48576791432_9edee785c5_o.jpg");
+            boatC = new Boat("Nimbus T8", "Nimbus", "Nimbus 8 Series", 1971, "https://nimbus.se/app/uploads/2020/10/Nimbus2020_T8-1200x800.jpg");
 
-        // Assign
-        boatA.setAuction(auctionA);
-        boatB.setAuction(auctionB);
-        boatC.setAuction(auctionB);
+            auctionA = new Auction("Båd auktion i Torvehallerne", "2022/02/01", "12:00", "København");
+            auctionB = new Auction("Køb en billig båd", "2022/06/01", "12:00", "Israels Plads");
 
-//        List<Boat> boatListA = ownerA.getBoats();
-//        boatListA.add(boatA);
+            // Assign
+            boatA.setAuction(auctionA);
+            boatB.setAuction(auctionB);
+            boatC.setAuction(auctionB);
 
-        List<Boat> boatListB = ownerB.getBoats();
-        boatListB.add(boatA);
-        boatListB.add(boatB);
-        boatListB.add(boatC);
+            List<Boat> boatListA = ownerA.getBoats();
+            boatListA.add(boatA);
 
-        List<Boat> boatListC = ownerC.getBoats();
-        boatListC.add(boatC);
+            List<Boat> boatListB = ownerB.getBoats();
+            boatListB.add(boatA);
+            boatListB.add(boatB);
+            boatListB.add(boatC);
 
-        // Persist
-        try {
-            em.getTransaction().begin();
-            em.persist(ownerA);
-            em.persist(ownerB);
-            em.persist(ownerC);
-            em.persist(boatA);
-            em.persist(boatB);
-            em.persist(boatC);
-            em.persist(auctionA);
-            em.persist(auctionB);
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            throw new API_Exception("No connection to DB.");
-        } finally {
-            em.close();
+            List<Boat> boatListC = ownerC.getBoats();
+            boatListC.add(boatC);
+
+            // Persist
+            try {
+                em.getTransaction().begin();
+                em.persist(ownerA);
+                em.persist(ownerB);
+                em.persist(ownerC);
+                em.persist(boatA);
+                em.persist(boatB);
+                em.persist(boatC);
+                em.persist(auctionA);
+                em.persist(auctionB);
+                em.getTransaction().commit();
+            } catch (Exception e) {
+                throw new API_Exception("No connection to DB.");
+            } finally {
+                em.close();
+            }
+        } else {
+            throw new API_Exception("DB is already populated!");
         }
     }
 

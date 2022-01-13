@@ -27,6 +27,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import facades.UserFacade;
 import security.errorhandling.AuthenticationException;
 import errorhandling.GenericExceptionMapper;
 
@@ -39,7 +40,7 @@ public class LoginEndpoint {
 
     public static final int token_expire_time = 1000 * 60 * 30; //30 min
     private static final EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
-    public static final Facade facade = Facade.getFacade(emf);
+    public static final UserFacade facade = UserFacade.getFacade(emf);
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)

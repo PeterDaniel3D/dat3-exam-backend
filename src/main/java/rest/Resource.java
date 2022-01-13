@@ -49,35 +49,6 @@ public class Resource {
     }
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("admin")
-    @RolesAllowed("admin")
-    public Response demoAdmin() {
-        String user = securityContext.getUserPrincipal().getName();
-        Message result = new Message("Hello to (admin) User: " + user);
-        return Response.ok().entity(gson.toJson(result)).build();
-    }
-
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("user")
-    @RolesAllowed("owner")
-    public Response demoUser() {
-        String user = securityContext.getUserPrincipal().getName();
-        Message result = new Message("Hello to User: " + user);
-        return Response.ok().entity(gson.toJson(result)).build();
-    }
-
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("users")
-    @RolesAllowed("admin")
-    public Response getUsers() throws API_Exception {
-        List<UserDTO> result = facade.getUsers();
-        return Response.ok().entity(gson.toJson(result)).build();
-    }
-
-    @GET
     @Produces({MediaType.APPLICATION_JSON})
     @Path("ownerId/{id}")
     @RolesAllowed("owner")
@@ -97,6 +68,7 @@ public class Resource {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     @Path("owner/{id}")
+    @RolesAllowed("owner")
     public Response getOwner(@PathParam("id") Long id) throws API_Exception {
         OwnerDTO result = facade.getOwner(id);
         return Response.ok().entity(gson.toJson(result)).build();

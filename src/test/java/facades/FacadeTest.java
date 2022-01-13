@@ -38,16 +38,16 @@ class FacadeTest {
         EntityManager em = emf.createEntityManager();
 
         // Create
-        ownerC = new Owner("Daniel", "11112222", "daniel@daniel.dk");
+        ownerA = new Owner("Daniel", "11112222", "daniel@daniel.dk");
         ownerB = new Owner("Jon", "33334444", "jon@jon.dk");
-        ownerA = new Owner("Peter", "55556666", "peter@peter.dk");
+        ownerC = new Owner("Peter", "55556666", "peter@peter.dk");
 
         boatA = new Boat("Modesty", "Ukendt", "BB-11", 1967, "https://motorbaadsnyt.dk/fileadmin/news_import/modstytopPICT0048.JPG");
         boatB = new Boat("Speedy", "Yamaha", "SS-Turbo", 1997, "https://www.proptalk.com/sites/default/files/inline-images/48576791432_9edee785c5_o.jpg");
         boatC = new Boat("Nimbus T8", "Nimbus", "Nimbus 8 Series", 1971, "https://nimbus.se/app/uploads/2020/10/Nimbus2020_T8-1200x800.jpg");
 
-        auctionA = new Auction("Båd auktion i Torvehallerne", "2022/02/01", "12:00", "København");
-        auctionB = new Auction("Køb en billig båd", "2022/06/01", "12:00", "Israels Plads");
+        auctionA = new Auction("Båd auktion i Torvehallerne", "2022/02/01", "09:00", "København");
+        auctionB = new Auction("Køb en billig båd", "2022/06/01", "12:30", "Israels Plads");
 
         // Assign
         boatA.setAuction(auctionA);
@@ -58,6 +58,7 @@ class FacadeTest {
         boatListA.add(boatA);
 
         List<Boat> boatListB = ownerB.getBoats();
+        boatListB.add(boatA);
         boatListB.add(boatB);
         boatListB.add(boatC);
 
@@ -99,5 +100,28 @@ class FacadeTest {
     @Test
     void getAuctions() {
         assertEquals(2, facade.getAuctions().size());
+    }
+
+    @Test
+    void getOwner() throws API_Exception {
+        String expected = ownerA.getName();
+        String actual = facade.getOwner(ownerA.getId()).getName();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void registerNewUser() {
+    }
+
+    @Test
+    void getVerifiedUser() {
+    }
+
+    @Test
+    void getOwnerId() {
+    }
+
+    @Test
+    void getBoatsByOwner() {
     }
 }
