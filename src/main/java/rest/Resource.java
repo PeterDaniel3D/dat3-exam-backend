@@ -8,6 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 
+import dtos.AuctionDTO;
 import dtos.UserDTO;
 import errorhandling.API_Exception;
 import facades.Facade;
@@ -61,6 +62,14 @@ public class Resource {
     @RolesAllowed("admin")
     public Response getUsers() throws API_Exception {
         List<UserDTO> result = facade.getUsers();
+        return Response.ok().entity(gson.toJson(result)).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("auctions")
+    public Response getAuctions() {
+        List<AuctionDTO> result = facade.getAuctions();
         return Response.ok().entity(gson.toJson(result)).build();
     }
 }

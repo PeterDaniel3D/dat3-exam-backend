@@ -1,5 +1,6 @@
 package facades;
 
+import dtos.AuctionDTO;
 import dtos.UserDTO;
 import entities.*;
 
@@ -77,5 +78,14 @@ public class Facade {
         List<UserDTO> userDTOS = new ArrayList<>();
         users.forEach(user -> userDTOS.add(new UserDTO(user.getUserName())));
         return userDTOS;
+    }
+
+    public List<AuctionDTO> getAuctions() {
+        EntityManager em = getEntityManager();
+        TypedQuery<Auction> query = em.createQuery("SELECT auction FROM Auction auction", Auction.class);
+        List<Auction> auctions = query.getResultList();
+        List<AuctionDTO> auctionDTOS = new ArrayList<>();
+        auctions.forEach(auction -> auctionDTOS.add(new AuctionDTO(auction.getId(), auction.getName(), auction.getDate(), auction.getTime(), auction.getLocation())));
+        return auctionDTOS;
     }
 }
