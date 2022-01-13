@@ -7,10 +7,6 @@ public class AuctionDTO {
     private String time;
     private String location;
 
-    public AuctionDTO(Long id) {
-        this.id = id;
-    }
-
     public AuctionDTO(String name, String date, String time, String location) {
         this.name = name;
         this.date = date;

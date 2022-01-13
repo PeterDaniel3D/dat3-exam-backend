@@ -2,6 +2,7 @@ package facades;
 
 import dtos.AuctionDTO;
 import dtos.BoatDTO;
+import dtos.OwnerDTO;
 import dtos.UserDTO;
 import entities.*;
 
@@ -99,5 +100,14 @@ public class Facade {
         List<BoatDTO> boatDTOS = new ArrayList<>();
         boats.forEach(boat -> boatDTOS.add(new BoatDTO(boat.getId(), boat.getName(), boat.getBrand(), boat.getMake(), boat.getYear(), boat.getImageURL())));
         return boatDTOS;
+    }
+
+    public OwnerDTO getOwner(Long id) throws API_Exception {
+        EntityManager em = getEntityManager();
+        Owner owner = em.find(Owner.class, id);
+        if (owner == null) {
+            throw new API_Exception("No owner with id (" + id + ") found.");
+        }
+        return new OwnerDTO(owner.getId(), owner.getName(), owner.getPhone(), owner.getEmail());
     }
 }

@@ -8,10 +8,6 @@ public class BoatDTO {
     private int year;
     private String imageURL;
 
-    public BoatDTO(Long id) {
-        this.id = id;
-    }
-
     public BoatDTO(Long id, String name, String brand, String make, int year, String imageURL) {
         this.id = id;
         this.name = name;
