@@ -95,7 +95,9 @@ public class Populator {
             dev.addRole(ownerRole);
 
             // Assign owners to users
-            user.setOwner(ownerC);
+            admin.setOwner(ownerA);
+            user.setOwner(ownerB);
+            dev.setOwner(ownerC);
 
             // Persist
             try {

@@ -79,7 +79,7 @@ public class Facade {
             throw new API_Exception("No users found. DB table is empty.");
         }
         List<UserDTO> userDTOS = new ArrayList<>();
-        users.forEach(user -> userDTOS.add(new UserDTO(user.getUserName())));
+        users.forEach(user -> userDTOS.add(new UserDTO(user.getUserName(), user.getOwner().getId())));
         return userDTOS;
     }
 

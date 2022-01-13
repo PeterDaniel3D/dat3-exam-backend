@@ -71,7 +71,7 @@ public class Resource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("users")
-    @RolesAllowed("admin")
+//    @RolesAllowed("admin")
     public Response getUsers() throws API_Exception {
         List<UserDTO> result = facade.getUsers();
         return Response.ok().entity(gson.toJson(result)).build();
