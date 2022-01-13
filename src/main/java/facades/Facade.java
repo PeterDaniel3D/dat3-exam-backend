@@ -71,6 +71,20 @@ public class Facade {
         return user;
     }
 
+    public UserDTO getOwnerId(String username) throws API_Exception {
+        EntityManager em = getEntityManager();
+        User user;
+        try {
+            user = em.find(User.class, username);
+            if (user == null) {
+                throw new API_Exception("No owner with username (" + username + ") found.");
+            }
+        } finally {
+            em.close();
+        }
+        return new UserDTO(user.getOwner().getId());
+    }
+
     public List<UserDTO> getUsers() throws API_Exception {
         EntityManager em = getEntityManager();
         TypedQuery<User> query = em.createQuery("SELECT user FROM User user", User.class);

@@ -78,6 +78,14 @@ public class Resource {
     }
 
     @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    @Path("ownerId/{id}")
+    public Response getOwnerId(@PathParam("id") String username) throws API_Exception {
+        UserDTO result = facade.getOwnerId(username);
+        return Response.ok().entity(gson.toJson(result)).build();
+    }
+
+    @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("auctions")
     public Response getAuctions() {

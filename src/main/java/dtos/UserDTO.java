@@ -8,6 +8,10 @@ public class UserDTO {
         this.userName = userName;
     }
 
+    public UserDTO(Long ownerId) {
+        this.ownerId = ownerId;
+    }
+
     public UserDTO(String userName, Long ownerId) {
         this.userName = userName;
         this.ownerId = ownerId;
