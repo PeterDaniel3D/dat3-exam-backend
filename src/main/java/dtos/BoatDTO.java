@@ -1,43 +1,19 @@
-package entities;
+package dtos;
 
-import javax.persistence.*;
-import java.util.List;
-
-@Entity
-@NamedQuery(name = "boat.deleteAllRows", query = "DELETE FROM Boat")
-@Table(name = "boat")
-public class Boat {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+public class BoatDTO {
     private Long id;
-
-    @Column(name = "name")
     private String name;
-
-    @Column(name = "brand")
     private String brand;
-
-    @Column(name = "make")
     private String make;
-
-    @Column(name = "year")
     private int year;
-
-    @Column(name = "imageURL")
     private String imageURL;
 
-    @ManyToMany(mappedBy = "boats")
-    private List<Owner> owners;
-
-    @ManyToOne
-    @JoinColumn(name = "auction_id")
-    private Auction auction;
-
-    public Boat() {
+    public BoatDTO(Long id) {
+        this.id = id;
     }
 
-    public Boat(String name, String brand, String make, int year, String imageURL) {
+    public BoatDTO(Long id, String name, String brand, String make, int year, String imageURL) {
+        this.id = id;
         this.name = name;
         this.brand = brand;
         this.make = make;
@@ -91,21 +67,5 @@ public class Boat {
 
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
-    }
-
-    public List<Owner> getOwners() {
-        return owners;
-    }
-
-    public void setOwners(List<Owner> owners) {
-        this.owners = owners;
-    }
-
-    public Auction getAuction() {
-        return auction;
-    }
-
-    public void setAuction(Auction auction) {
-        this.auction = auction;
     }
 }

@@ -1,6 +1,7 @@
 package facades;
 
 import dtos.AuctionDTO;
+import dtos.BoatDTO;
 import dtos.UserDTO;
 import entities.*;
 
@@ -87,5 +88,15 @@ public class Facade {
         List<AuctionDTO> auctionDTOS = new ArrayList<>();
         auctions.forEach(auction -> auctionDTOS.add(new AuctionDTO(auction.getId(), auction.getName(), auction.getDate(), auction.getTime(), auction.getLocation())));
         return auctionDTOS;
+    }
+
+    public List<BoatDTO> getBoatsByOwner(Long id) {
+        EntityManager em = getEntityManager();
+        TypedQuery<Boat> query = em.createQuery("SELECT boat FROM Boat boat INNER JOIN boat.owners owners WHERE owners.id = :id", Boat.class);
+        query.setParameter("id", id);
+        List<Boat> boats = query.getResultList();
+        List<BoatDTO> boatDTOS = new ArrayList<>();
+        boats.forEach(boat -> boatDTOS.add(new BoatDTO(boat.getId(), boat.getName(), boat.getBrand(), boat.getMake(), boat.getYear(), boat.getImageURL())));
+        return boatDTOS;
     }
 }

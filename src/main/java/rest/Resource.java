@@ -9,6 +9,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 
 import dtos.AuctionDTO;
+import dtos.BoatDTO;
 import dtos.UserDTO;
 import errorhandling.API_Exception;
 import facades.Facade;
@@ -70,6 +71,15 @@ public class Resource {
     @Path("auctions")
     public Response getAuctions() {
         List<AuctionDTO> result = facade.getAuctions();
+        return Response.ok().entity(gson.toJson(result)).build();
+    }
+
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    @Path("boatsByOwner/{id}")
+//    @RolesAllowed("owner")
+    public Response getBoatsByOwner(@PathParam("id") Long id) {
+        List<BoatDTO> result = facade.getBoatsByOwner(id);
         return Response.ok().entity(gson.toJson(result)).build();
     }
 }
