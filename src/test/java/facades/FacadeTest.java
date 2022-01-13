@@ -16,8 +16,10 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class FacadeTest {
 
@@ -132,5 +134,17 @@ class FacadeTest {
         int expected = boats.size();
         int actual = facade.getBoatsByOwner(ownerC.getId()).size();
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void addBoat() {
+        BoatDTO expected = new BoatDTO(boatA.getName(), boatA.getBrand(), boatA.getMake(), boatA.getYear(), boatA.getImageURL(), ownerA.getId());
+        BoatDTO actual = facade.addBoat(expected);
+        assertTrue(Objects.equals(expected.getName(), actual.getName()) &&
+                Objects.equals(expected.getBrand(), actual.getBrand()) &&
+                Objects.equals(expected.getMake(), actual.getMake()) &&
+                Objects.equals(expected.getYear(), actual.getYear()) &&
+                Objects.equals(expected.getImageURL(), actual.getImageURL())
+        );
     }
 }

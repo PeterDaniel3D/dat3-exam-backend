@@ -73,4 +73,14 @@ public class Resource {
         List<BoatDTO> result = facade.getBoatsByOwner(id);
         return Response.ok().entity(gson.toJson(result)).build();
     }
+
+    @POST
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Path("boat")
+    public Response addBoat(String str) {
+        BoatDTO boatDTO = gson.fromJson(str, BoatDTO.class);
+        BoatDTO result = facade.addBoat(boatDTO);
+        return Response.ok().entity(gson.toJson(result)).build();
+    }
 }

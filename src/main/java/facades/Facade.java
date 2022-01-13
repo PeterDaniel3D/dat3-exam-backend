@@ -61,4 +61,20 @@ public class Facade {
         }
         return new OwnerDTO(owner.getId(), owner.getName(), owner.getPhone(), owner.getEmail());
     }
+
+    public BoatDTO addBoat(BoatDTO boatDTO) {
+        EntityManager em = getEntityManager();
+        Boat boat = new Boat(boatDTO.getName(), boatDTO.getBrand(), boatDTO.getMake(), boatDTO.getYear(), boatDTO.getImageURL());
+        Owner owner = em.find(Owner.class, boatDTO.getOwnerId());
+        List<Boat> boatList = owner.getBoats();
+        boatList.add(boat);
+        try {
+            em.getTransaction().begin();
+            em.persist(boat);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return new BoatDTO(boat.getId(),  boat.getName(), boat.getBrand(), boat.getMake(), boat.getYear(), boat.getImageURL());
+    }
 }

@@ -45,6 +45,15 @@ public class Boat {
         this.imageURL = imageURL;
     }
 
+    public Boat(Long id, String name, String brand, String make, int year, String imageURL) {
+        this.id = id;
+        this.name = name;
+        this.brand = brand;
+        this.make = make;
+        this.year = year;
+        this.imageURL = imageURL;
+    }
+
     public Long getId() {
         return id;
     }

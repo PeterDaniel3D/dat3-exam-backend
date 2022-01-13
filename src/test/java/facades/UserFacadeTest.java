@@ -131,4 +131,9 @@ class UserFacadeTest {
         Long actual = facade.getOwnerId(dev.getUserName()).getOwnerId();
         assertEquals(expected, actual);
     }
+
+    @Test
+    void addBoat() {
+
+    }
 }

@@ -38,8 +38,8 @@ public class Populator {
             boatB = new Boat("Speedy", "Yamaha", "SS-Turbo", 1997, "https://www.proptalk.com/sites/default/files/inline-images/48576791432_9edee785c5_o.jpg");
             boatC = new Boat("Nimbus T8", "Nimbus", "Nimbus 8 Series", 1971, "https://nimbus.se/app/uploads/2020/10/Nimbus2020_T8-1200x800.jpg");
 
-            auctionA = new Auction("Båd auktion i Torvehallerne", "2022/02/01", "12:00", "København");
-            auctionB = new Auction("Køb en billig båd", "2022/06/01", "12:00", "Israels Plads");
+            auctionA = new Auction("Båd auktion i Torvehallerne", "2022/02/01", "09:00", "København");
+            auctionB = new Auction("Køb en billig båd", "2022/06/01", "12:30", "Israels Plads");
 
             // Assign
             boatA.setAuction(auctionA);

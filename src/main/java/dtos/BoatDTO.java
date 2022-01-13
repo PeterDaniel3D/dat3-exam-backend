@@ -7,6 +7,16 @@ public class BoatDTO {
     private String make;
     private int year;
     private String imageURL;
+    private Long ownerId;
+
+    public BoatDTO(String name, String brand, String make, int year, String imageURL, Long ownerId) {
+        this.name = name;
+        this.brand = brand;
+        this.make = make;
+        this.year = year;
+        this.imageURL = imageURL;
+        this.ownerId = ownerId;
+    }
 
     public BoatDTO(Long id, String name, String brand, String make, int year, String imageURL) {
         this.id = id;
@@ -63,5 +73,13 @@ public class BoatDTO {
 
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
+    }
+
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
     }
 }
