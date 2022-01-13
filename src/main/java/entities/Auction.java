@@ -16,6 +16,7 @@ public class Auction {
 
     @Column(name = "date")
     private String date;
+
     @Column(name = "time")
     private String time;
 

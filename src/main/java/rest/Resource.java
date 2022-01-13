@@ -87,18 +87,18 @@ public class Resource {
 
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    @Path("boatsByOwner/{id}")
-    @RolesAllowed("owner")
-    public Response getBoatsByOwner(@PathParam("id") Long id) {
-        List<BoatDTO> result = facade.getBoatsByOwner(id);
+    @Path("owner/{id}")
+    public Response getOwner(@PathParam("id") Long id) throws API_Exception {
+        OwnerDTO result = facade.getOwner(id);
         return Response.ok().entity(gson.toJson(result)).build();
     }
 
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    @Path("owner/{id}")
-    public Response getOwner(@PathParam("id") Long id) throws API_Exception {
-        OwnerDTO result = facade.getOwner(id);
+    @Path("boatsByOwner/{id}")
+    @RolesAllowed("owner")
+    public Response getBoatsByOwner(@PathParam("id") Long id) {
+        List<BoatDTO> result = facade.getBoatsByOwner(id);
         return Response.ok().entity(gson.toJson(result)).build();
     }
 }

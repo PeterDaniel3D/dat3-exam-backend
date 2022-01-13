@@ -22,7 +22,7 @@ class FacadeTest {
     private static Facade facade;
     private static Owner ownerA, ownerB, ownerC;
     private static Boat boatA, boatB, boatC;
-    private static Auction auctionA, auctionB, auctionC;
+    private static Auction auctionA, auctionB;
 
     public FacadeTest() {
     }

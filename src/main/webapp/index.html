@@ -30,30 +30,35 @@
         <col width="200">
         <col width="200">
         <col width="140">
+        <col width="140">
         <col width="700">
     </colgroup>
     <tbody>
     <tr>
-        <td>Endpoint</td>
-        <td>Description</td>
-        <td>Method</td>
-        <td>Body</td>
+        <td><b>Endpoint</b></td>
+        <td><b>Description</b></td>
+        <td><b>Restriction</b></td>
+        <td><b>Method</b></td>
+        <td><b>Body</b></td>
     </tr>
     <tr>
         <td><a href="api/auctions"/>auctions</td>
         <td>List all auctions</td>
+        <td>-</td>
         <td>GET</td>
         <td>-</td>
     </tr>
     <tr>
-        <td><a href="api/boatsByOwner/1"/>boatsByOwner/1</td>
+        <td><a href="api/boatsByOwner/1"/>boatsByOwner/{id}</td>
         <td>List all boats of an owner</td>
+        <td>owner</td>
         <td>GET</td>
         <td>-</td>
     </tr>
     <tr>
-        <td><a href="api/owner/1"/>owner/1</td>
-        <td>List all boats of an owner</td>
+        <td><a href="api/owner/1"/>owner/{id}</td>
+        <td>Get specific owner</td>
+        <td>-</td>
         <td>GET</td>
         <td>-</td>
     </tr>

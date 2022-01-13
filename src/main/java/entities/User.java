@@ -33,6 +33,10 @@ public class User implements Serializable {
     @ManyToMany
     private List<Role> roleList = new ArrayList<>();
 
+    @OneToOne
+    @JoinColumn(name = "owner_id")
+    private Owner owner;
+
     public User() {
     }
 
@@ -82,5 +86,13 @@ public class User implements Serializable {
 
     public void addRole(Role userRole) {
         roleList.add(userRole);
+    }
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
     }
 }

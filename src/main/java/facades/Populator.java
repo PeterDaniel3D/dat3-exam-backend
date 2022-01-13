@@ -14,6 +14,10 @@ public class Populator {
 
     private static final EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
 
+    private static Owner ownerA, ownerB, ownerC;
+    private static Boat boatA, boatB, boatC;
+    private static Auction auctionA, auctionB;
+
     public static void main(String[] args) throws API_Exception {
         populate();
         createUsers();
@@ -23,16 +27,16 @@ public class Populator {
         EntityManager em = emf.createEntityManager();
 
         // Create
-        Owner ownerC = new Owner("Daniel", "11112222", "daniel@daniel.dk");
-        Owner ownerB = new Owner("Jon", "33334444", "jon@jon.dk");
-        Owner ownerA = new Owner("Peter", "55556666", "peter@peter.dk");
+        ownerA = new Owner("Daniel", "11112222", "daniel@daniel.dk");
+        ownerB = new Owner("Jon", "33334444", "jon@jon.dk");
+        ownerC = new Owner("Peter", "55556666", "peter@peter.dk");
 
-        Boat boatA = new Boat("Modesty", "Ukendt", "BB-11", 1967, "https://motorbaadsnyt.dk/fileadmin/news_import/modstytopPICT0048.JPG");
-        Boat boatB = new Boat("Speedy", "Yamaha", "SS-Turbo", 1997, "https://www.proptalk.com/sites/default/files/inline-images/48576791432_9edee785c5_o.jpg");
-        Boat boatC = new Boat("Nimbus T8", "Nimbus", "Nimbus 8 Series", 1971, "https://nimbus.se/app/uploads/2020/10/Nimbus2020_T8-1200x800.jpg");
+        boatA = new Boat("Modesty", "Ukendt", "BB-11", 1967, "https://motorbaadsnyt.dk/fileadmin/news_import/modstytopPICT0048.JPG");
+        boatB = new Boat("Speedy", "Yamaha", "SS-Turbo", 1997, "https://www.proptalk.com/sites/default/files/inline-images/48576791432_9edee785c5_o.jpg");
+        boatC = new Boat("Nimbus T8", "Nimbus", "Nimbus 8 Series", 1971, "https://nimbus.se/app/uploads/2020/10/Nimbus2020_T8-1200x800.jpg");
 
-        Auction auctionA = new Auction("Båd auktion i Torvehallerne", "2022/02/01", "12:00", "København");
-        Auction auctionB = new Auction("Køb en billig båd", "2022/06/01", "12:00", "Israels Plads");
+        auctionA = new Auction("Båd auktion i Torvehallerne", "2022/02/01", "12:00", "København");
+        auctionB = new Auction("Køb en billig båd", "2022/06/01", "12:00", "Israels Plads");
 
         // Assign
         boatA.setAuction(auctionA);
@@ -89,6 +93,9 @@ public class Populator {
             user.addRole(ownerRole);
             dev.addRole(adminRole);
             dev.addRole(ownerRole);
+
+            // Assign owners to users
+            user.setOwner(ownerC);
 
             // Persist
             try {

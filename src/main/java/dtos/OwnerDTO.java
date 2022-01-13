@@ -6,12 +6,6 @@ public class OwnerDTO {
     private String phone;
     private String email;
 
-    public OwnerDTO(String name, String phone, String email) {
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-    }
-
     public OwnerDTO(Long id, String name, String phone, String email) {
         this.id = id;
         this.name = name;
