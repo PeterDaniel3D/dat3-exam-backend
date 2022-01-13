@@ -29,7 +29,7 @@ class AuctionTest {
         System.out.println("");
 
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy/MM/dd");
-        SimpleDateFormat sdfTime = new SimpleDateFormat("h:mm:ss");
+        SimpleDateFormat sdfTime = new SimpleDateFormat("h:mm");
         sdfDate.setTimeZone(TimeZone.getTimeZone("GMT+1"));
         sdfTime.setTimeZone(TimeZone.getTimeZone("GMT+1"));
 
