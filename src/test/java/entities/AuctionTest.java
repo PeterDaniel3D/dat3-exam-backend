@@ -37,6 +37,5 @@ class AuctionTest {
         String formattedTime = sdfTime.format(time);
         System.out.println("Date (String)   : " + formattedDate);
         System.out.println("Time (String)   : " + formattedTime);
-
     }
 }

@@ -31,7 +31,7 @@ public class Boat {
     private List<Owner> owners;
 
     @ManyToOne
-    @JoinColumn(name = "harbour_id")
+    @JoinColumn(name = "auction_id")
     private Auction auction;
 
     public Boat() {
