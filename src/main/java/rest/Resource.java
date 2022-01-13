@@ -61,7 +61,7 @@ public class Resource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("user")
-    @RolesAllowed("user")
+    @RolesAllowed("owner")
     public Response demoUser() {
         String user = securityContext.getUserPrincipal().getName();
         Message result = new Message("Hello to User: " + user);
@@ -71,7 +71,7 @@ public class Resource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("users")
-//    @RolesAllowed("admin")
+    @RolesAllowed("admin")
     public Response getUsers() throws API_Exception {
         List<UserDTO> result = facade.getUsers();
         return Response.ok().entity(gson.toJson(result)).build();
@@ -80,6 +80,7 @@ public class Resource {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     @Path("ownerId/{id}")
+    @RolesAllowed("owner")
     public Response getOwnerId(@PathParam("id") String username) throws API_Exception {
         UserDTO result = facade.getOwnerId(username);
         return Response.ok().entity(gson.toJson(result)).build();

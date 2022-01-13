@@ -43,10 +43,11 @@ public class Populator {
         boatB.setAuction(auctionB);
         boatC.setAuction(auctionB);
 
-        List<Boat> boatListA = ownerA.getBoats();
-        boatListA.add(boatA);
+//        List<Boat> boatListA = ownerA.getBoats();
+//        boatListA.add(boatA);
 
         List<Boat> boatListB = ownerB.getBoats();
+        boatListB.add(boatA);
         boatListB.add(boatB);
         boatListB.add(boatC);
 
