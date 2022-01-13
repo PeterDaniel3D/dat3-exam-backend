@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BACKEND</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <style>
+        h2, table, p {
+            font-family: calibri;
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    <div><h2 id="url"></h2>
+        <table>
+            <tr>
+                <td><a href="api/populate">Populate DB</a></td>
+            </tr>
+            <tr>
+                <td><a href="api/createUsers">Create Users</a></td>
+            </tr>
+        </table>
+        <p>List of all available endpoints --- </p>
+    </div>
+
+    <!-- TODO: Add API info here -->
+
+
+</div>
+
+<!-- Get URL -->
+<script>
+
+    let url = document.URL + "api/";
+    document.getElementById("url").innerHTML = url;
+</script>
+
+</body>
+</html>
