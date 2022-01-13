@@ -13,6 +13,7 @@ import dtos.BoatDTO;
 import dtos.UserDTO;
 import errorhandling.API_Exception;
 import facades.Facade;
+import facades.Populator;
 import utils.EMF_Creator;
 import utils.Message;
 
@@ -34,6 +35,15 @@ public class Resource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response demo() {
         Message result = new Message("Hello Anonymous! Server is running...");
+        return Response.ok().entity(gson.toJson(result)).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("populate")
+    public Response populate() throws API_Exception {
+        Populator.populate();
+        Message result = new Message("Populated DB!");
         return Response.ok().entity(gson.toJson(result)).build();
     }
 
@@ -77,7 +87,7 @@ public class Resource {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     @Path("boatsByOwner/{id}")
-//    @RolesAllowed("owner")
+    @RolesAllowed("owner")
     public Response getBoatsByOwner(@PathParam("id") Long id) {
         List<BoatDTO> result = facade.getBoatsByOwner(id);
         return Response.ok().entity(gson.toJson(result)).build();

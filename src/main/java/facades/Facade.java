@@ -36,6 +36,7 @@ public class Facade {
         return instance;
     }
 
+
     public User registerNewUser(String username, String password) {
         EntityManager em = emf.createEntityManager();
         Role role = new Role("user");
