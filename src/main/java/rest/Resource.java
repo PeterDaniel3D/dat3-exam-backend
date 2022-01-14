@@ -116,4 +116,6 @@ public class Resource {
         BoatDTO result = facade.updateBoat(boatDTO);
         return Response.ok().entity(gson.toJson(result)).build();
     }
+
+
 }

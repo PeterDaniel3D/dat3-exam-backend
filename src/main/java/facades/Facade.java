@@ -110,4 +110,6 @@ public class Facade {
 
         return new BoatDTO(boat.getId(), boat.getName(), boat.getBrand(), boat.getMake(), boat.getYear(), boat.getImageURL());
     }
+
+
 }
