@@ -111,5 +111,23 @@ public class Facade {
         return new BoatDTO(boat.getId(), boat.getName(), boat.getBrand(), boat.getMake(), boat.getYear(), boat.getImageURL());
     }
 
-
+    public AuctionDTO deleteAuction(Long id) throws API_Exception {
+        EntityManager em = getEntityManager();
+        TypedQuery<Boat> query = em.createQuery("SELECT boat FROM Boat boat", Boat.class);
+        List<Boat> boats = query.getResultList();
+        for (Boat boat : boats) {
+            if (boat.getAuction().getId().equals(id)) {
+                throw new API_Exception("Could not delete auction. One relation to boat with id (" + boat.getAuction().getId() + ") was found.");
+            }
+        }
+        Auction auction = em.find(Auction.class, id);
+        try {
+            em.getTransaction().begin();
+            em.remove(auction);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return new AuctionDTO(auction.getId());
+    }
 }

@@ -6,7 +6,6 @@ import javax.persistence.TypedQuery;
 
 import entities.*;
 import errorhandling.API_Exception;
-import utils.EMF_Creator;
 
 import java.util.List;
 
@@ -16,7 +15,7 @@ public class Populator {
 
     private static Owner ownerA, ownerB, ownerC;
     private static Boat boatA, boatB, boatC;
-    private static Auction auctionA, auctionB;
+    private static Auction auctionA, auctionB, auctionC;
     private static Role adminRole, ownerRole;
     private static User admin, dev, user;
 
@@ -43,6 +42,7 @@ public class Populator {
 
             auctionA = new Auction("Båd auktion i Torvehallerne", "2022/02/01", "09:00", "København");
             auctionB = new Auction("Køb en billig båd", "2022/06/01", "12:30", "Israels Plads");
+            auctionC = new Auction("Laurits båd udsalg", "2050/01/13", "20:00", "Sjælland og omegn");
 
             // Assign
             boatA.setAuction(auctionA);
@@ -71,6 +71,7 @@ public class Populator {
                 em.persist(boatC);
                 em.persist(auctionA);
                 em.persist(auctionB);
+                em.persist(auctionC);
                 em.getTransaction().commit();
             } catch (Exception e) {
                 throw new API_Exception("No connection to DB.");

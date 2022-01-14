@@ -15,6 +15,10 @@ public class AuctionDTO {
         this.location = location;
     }
 
+    public AuctionDTO(Long id) {
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }

@@ -117,5 +117,12 @@ public class Resource {
         return Response.ok().entity(gson.toJson(result)).build();
     }
 
-
+    @DELETE
+    @Path("auction/{id}")
+    @RolesAllowed("admin")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response deleteAuction(@PathParam("id") Long id) throws API_Exception {
+        AuctionDTO result = facade.deleteAuction(id);
+        return Response.ok().entity(gson.toJson(result)).build();
+    }
 }
