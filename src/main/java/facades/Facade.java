@@ -86,4 +86,28 @@ public class Facade {
         }
         return new BoatDTO(boat.getId(),  boat.getName(), boat.getBrand(), boat.getMake(), boat.getYear(), boat.getImageURL());
     }
+
+    public BoatDTO updateBoat(BoatDTO boatDTO) throws API_Exception {
+        EntityManager em = getEntityManager();
+
+        Boat boat = em.find(Boat.class, boatDTO.getId());
+        if (boat == null) {
+            throw new API_Exception("No boat with id (" + boatDTO.getId() + ") found.");
+        }
+        boat.setName(boatDTO.getName());
+        boat.setBrand(boatDTO.getBrand());
+        boat.setMake(boatDTO.getMake());
+        boat.setYear(boatDTO.getYear());
+        boat.setImageURL(boatDTO.getImageURL());
+
+        try {
+            em.getTransaction().begin();
+            em.merge(boat);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+
+        return new BoatDTO(boat.getId(), boat.getName(), boat.getBrand(), boat.getMake(), boat.getYear(), boat.getImageURL());
+    }
 }

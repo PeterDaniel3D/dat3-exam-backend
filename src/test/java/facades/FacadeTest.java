@@ -14,7 +14,6 @@ import utils.EMF_Creator;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -138,6 +137,24 @@ class FacadeTest {
 
     @Test
     void addBoat() throws API_Exception {
+        BoatDTO expected = new BoatDTO(boatA.getName(), boatA.getBrand(), boatA.getMake(), boatA.getYear(), boatA.getImageURL(), ownerA.getId());
+        BoatDTO actual = facade.addBoat(expected);
+        assertTrue(Objects.equals(expected.getName(), actual.getName()) &&
+                Objects.equals(expected.getBrand(), actual.getBrand()) &&
+                Objects.equals(expected.getMake(), actual.getMake()) &&
+                Objects.equals(expected.getYear(), actual.getYear()) &&
+                Objects.equals(expected.getImageURL(), actual.getImageURL())
+        );
+    }
+
+    @Test
+    void updateBoat() throws API_Exception {
+        boatA.setName("Test Name");
+        boatA.setBrand("Test Brand");
+        boatA.setMake("Test Make");
+        boatA.setYear(0000);
+        boatA.setImageURL("Test ImageURL");
+
         BoatDTO expected = new BoatDTO(boatA.getName(), boatA.getBrand(), boatA.getMake(), boatA.getYear(), boatA.getImageURL(), ownerA.getId());
         BoatDTO actual = facade.addBoat(expected);
         assertTrue(Objects.equals(expected.getName(), actual.getName()) &&

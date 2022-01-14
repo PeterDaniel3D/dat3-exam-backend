@@ -78,9 +78,22 @@ public class Resource {
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
     @Path("boat")
+    @RolesAllowed("owner")
     public Response addBoat(String str) throws API_Exception {
         BoatDTO boatDTO = gson.fromJson(str, BoatDTO.class);
         BoatDTO result = facade.addBoat(boatDTO);
+        return Response.ok().entity(gson.toJson(result)).build();
+    }
+
+    @PUT
+    @Path("boat/{id}")
+//    @RolesAllowed("owner")
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response updateBoat(@PathParam("id") Long id, String str) throws API_Exception {
+        BoatDTO boatDTO = gson.fromJson(str, BoatDTO.class);
+        boatDTO.setId(id);
+        BoatDTO result = facade.updateBoat(boatDTO);
         return Response.ok().entity(gson.toJson(result)).build();
     }
 }

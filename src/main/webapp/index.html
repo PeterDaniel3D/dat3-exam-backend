@@ -35,7 +35,7 @@
             <col width="70">
             <col width="140">
             <col width="140">
-            <col width="600">
+            <col width="700">
         </colgroup>
         <tbody>
         <tr>
@@ -43,7 +43,7 @@
             <td><b>Description</b></td>
             <td><b>Case</b></td>
             <td><b>Restriction</b></td>
-            <td><b>Method</b></td>
+            <td><b>Request</b></td>
             <td><b>Body</b></td>
         </tr>
         <tr>
@@ -64,8 +64,20 @@
                 "brand": "string",
                 "make": "string",
                 "year": "int",
-                "imageURL": "string"
-                }
+                "imageURL": "string" }
+            </td>
+        </tr>
+        <tr>
+            <td><a href="api/boat/1"/>boat/{id}</td>
+            <td>Update boat</td>
+            <td>US-4</td>
+            <td>owner</td>
+            <td>PUT</td>
+            <td>{ "name": "string",
+                "brand": "string",
+                "make": "string",
+                "year": "int",
+                "imageURL": "string" }
             </td>
         </tr>
         <tr>
@@ -102,7 +114,6 @@
         </tr>
         </tbody>
     </table>
-
 </div>
 
 <!-- Get URL -->
