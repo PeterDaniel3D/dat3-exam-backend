@@ -6,6 +6,7 @@ import javax.persistence.TypedQuery;
 
 import entities.*;
 import errorhandling.API_Exception;
+import utils.EMF_Creator;
 
 import java.util.List;
 
@@ -16,6 +17,8 @@ public class Populator {
     private static Owner ownerA, ownerB, ownerC;
     private static Boat boatA, boatB, boatC;
     private static Auction auctionA, auctionB;
+    private static Role adminRole, ownerRole;
+    private static User admin, dev, user;
 
     public static void main(String[] args) throws API_Exception {
         populate();
@@ -88,13 +91,13 @@ public class Populator {
 
         if (users.isEmpty()) {
             // Create roles
-            Role adminRole = new Role("admin");
-            Role ownerRole = new Role("owner");
+            adminRole = new Role("admin");
+            ownerRole = new Role("owner");
 
             // Create users
-            User admin = new User("admin", "admin");
-            User user = new User("owner", "owner");
-            User dev = new User("dev", "dev");
+            admin = new User("admin", "admin");
+            user = new User("owner", "owner");
+            dev = new User("dev", "dev");
 
             // Assign roles
             admin.addRole(adminRole);

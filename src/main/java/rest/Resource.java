@@ -41,6 +41,26 @@ public class Resource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @Path("admin")
+    @RolesAllowed("admin")
+    public Response demoAdmin() {
+        String user = securityContext.getUserPrincipal().getName();
+        Message result = new Message("Hello to (admin) User: " + user);
+        return Response.ok().entity(gson.toJson(result)).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("user")
+    @RolesAllowed("owner")
+    public Response demoUser() {
+        String user = securityContext.getUserPrincipal().getName();
+        Message result = new Message("Hello to User: " + user);
+        return Response.ok().entity(gson.toJson(result)).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("populate")
     public Response populate() throws API_Exception {
         Populator.populate();
@@ -87,7 +107,7 @@ public class Resource {
 
     @PUT
     @Path("boat/{id}")
-//    @RolesAllowed("owner")
+    @RolesAllowed("owner")
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
     public Response updateBoat(@PathParam("id") Long id, String str) throws API_Exception {
